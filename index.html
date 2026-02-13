@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Photography Portfolio</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: #fafafa;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        header {
+            padding: 3rem 2rem;
+            text-align: center;
+            background: white;
+            border-bottom: 1px solid #eee;
+        }
+
+        h1 {
+            font-size: 1.5rem;
+            font-weight: 300;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            margin-bottom: 0.5rem;
+        }
+
+        .subtitle {
+            font-size: 0.9rem;
+            color: #888;
+            font-weight: 300;
+        }
+
+        .gallery {
+            max-width: 1400px;
+            margin: 3rem auto;
+            padding: 0 2rem;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .photo-item {
+            position: relative;
+            overflow: hidden;
+            background: white;
+            cursor: pointer;
+            aspect-ratio: 4/3;
+        }
+
+        .photo-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease, opacity 0.3s ease;
+        }
+
+        .photo-item:hover img {
+            transform: scale(1.05);
+            opacity: 0.9;
+        }
+
+        .photo-caption {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(transparent, rgba(0,0,0,0.7));
+            color: white;
+            padding: 2rem 1rem 1rem;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .photo-item:hover .photo-caption {
+            opacity: 1;
+        }
+
+        .caption-title {
+            font-size: 0.9rem;
+            font-weight: 400;
+            margin-bottom: 0.25rem;
+        }
+
+        .caption-location {
+            font-size: 0.8rem;
+            opacity: 0.8;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.95);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal img {
+            max-width: 90%;
+            max-height: 90vh;
+            object-fit: contain;
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 2rem;
+            right: 2rem;
+            color: white;
+            font-size: 2rem;
+            cursor: pointer;
+            background: none;
+            border: none;
+            padding: 0.5rem;
+        }
+
+        footer {
+            text-align: center;
+            padding: 3rem 2rem;
+            color: #888;
+            font-size: 0.85rem;
+        }
+
+        @media (max-width: 768px) {
+            .gallery {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+                margin: 2rem auto;
+            }
+
+            header {
+                padding: 2rem 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Bryan VS</h1>
+        <p class="subtitle">Photography</p>
+    </header>
+
+    <div class="gallery">
+        <div class="photo-item" onclick="openModal(this)">
+            <img src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800" alt="Mountain landscape">
+            <div class="photo-caption">
+                <div class="caption-title">Mountain Light</div>
+                <div class="caption-location">Colorado, 2024</div>
+            </div>
+        </div>
+
+        <div class="photo-item" onclick="openModal(this)">
+            <img src="https://images.unsplash.com/photo-1518837695005-2083093ee35b?w=800" alt="Ocean waves">
+            <div class="photo-caption">
+                <div class="caption-title">Coastal Evening</div>
+                <div class="caption-location">California, 2024</div>
+            </div>
+        </div>
+
+        <div class="photo-item" onclick="openModal(this)">
+            <img src="https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=800" alt="Forest path">
+            <div class="photo-caption">
+                <div class="caption-title">Forest Path</div>
+                <div class="caption-location">Washington, 2023</div>
+            </div>
+        </div>
+
+        <div class="photo-item" onclick="openModal(this)">
+            <img src="https://images.unsplash.com/photo-1469474968028-56623f02e42e?w=800" alt="Lake reflection">
+            <div class="photo-caption">
+                <div class="caption-title">Still Waters</div>
+                <div class="caption-location">Montana, 2023</div>
+            </div>
+        </div>
+
+        <div class="photo-item" onclick="openModal(this)">
+            <img src="https://images.unsplash.com/photo-1519904981063-b0cf448d479e?w=800" alt="Desert landscape">
+            <div class="photo-caption">
+                <div class="caption-title">Desert Sunrise</div>
+                <div class="caption-location">Arizona, 2024</div>
+            </div>
+        </div>
+
+        <div class="photo-item" onclick="openModal(this)">
+            <img src="https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?w=800" alt="Misty mountains">
+            <div class="photo-caption">
+                <div class="caption-title">Morning Mist</div>
+                <div class="caption-location">Oregon, 2023</div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        © 2024 Bryan VS. All rights reserved.
+    </footer>
+
+    <div class="modal" id="modal" onclick="closeModal()">
+        <button class="modal-close" onclick="closeModal()">×</button>
+        <img id="modalImg" src="" alt="">
+    </div>
+
+    <script>
+        function openModal(element) {
+            const img = element.querySelector('img');
+            const modal = document.getElementById('modal');
+            const modalImg = document.getElementById('modalImg');
+            
+            modalImg.src = img.src;
+            modal.classList.add('active');
+        }
+
+        function closeModal() {
+            const modal = document.getElementById('modal');
+            modal.classList.remove('active');
+        }
+
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                closeModal();
+            }
+        });
+    </script>
+</body>
+</html>
